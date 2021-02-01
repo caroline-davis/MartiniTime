@@ -1,0 +1,9 @@
+button {
+  max-width: 100px;
+  min-width: 70px;
+  background-color: aliceblue;
+  border-radius: 30px;
+  border-style: none;
+  padding: 5px;
+  margin: 5px;
+}
