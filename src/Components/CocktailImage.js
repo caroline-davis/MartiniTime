@@ -1,5 +1,6 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
-import './Styling/FlowerImage.css'
+import './Styling/CocktailImage.css'
 
 export default ({ url }) => {
     return (
