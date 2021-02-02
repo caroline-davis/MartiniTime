@@ -5,22 +5,15 @@ import './Styling/Home.css';
 
 function Home() {
 
-  const [count, setCount] = useState(0)
-  const [winner, setWinner] = useState(null)
   const [cocktails, setCocktails] = useState(null)
   const [loading, setLoading] = useState(false)
   const [loadingError, setLoadingError] = useState(false)
 
-  function wrangleData(cocktails, count) {
-    return {
-      "drink": cocktails.drinks.map(cocktail => [
-        {
-          "name": cocktail.strDrink,
-          "image": cocktail.strDrinkThumb,
-          "count": count
-        }
-      ])
-    }
+  function wrangleData(cocktails) {
+    return cocktails.drinks.map(cocktail => ({
+      "name": cocktail.strDrink,
+      "image": cocktail.strDrinkThumb
+    }))
   }
 
   useEffect(() => {
@@ -29,7 +22,7 @@ function Home() {
       setLoadingError(false)
       try {
         const result = await getCocktailsApi()
-        const data = wrangleData(result, setCount(0))
+        const data = wrangleData(result)
         setCocktails(data)
         setLoading(false)
         setLoadingError(false)
@@ -42,7 +35,7 @@ function Home() {
     callGetCocktails();
 
   }, [])
-  console.log(count)
+
 
   return (
     <div className="home">
@@ -50,8 +43,8 @@ function Home() {
       <div className="main-container">
         {loading && 'loading...'}
         {loadingError && 'error message'}
-        {cocktails && !loading && !loadingError && cocktails.drink.map(cocktailDrinks =>
-          cocktails && <CocktailContainer setCount={setCount} count={count} cocktailDrinks={cocktailDrinks} />
+        {cocktails && !loading && !loadingError && cocktails.map(cocktail =>
+          cocktails && <CocktailContainer cocktail={cocktail} />
         )}
       </div>
       <div className="outcome">WINNER: </div>
