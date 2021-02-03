@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import { getCocktailsApi } from '../Api';
 import CocktailContainer from './CocktailContainer'
 import './Styling/Home.css';
 
-function Home() {
+function Home({ setWinnerName }) {
 
   const [cocktails, setCocktails] = useState(null)
   const [loading, setLoading] = useState(false)
   const [loadingError, setLoadingError] = useState(false)
+  const [winnerCount, setWinnerCount] = useState(0)
+
 
   function wrangleData(cocktails) {
     return cocktails.drinks.map(cocktail => ({
@@ -36,7 +39,6 @@ function Home() {
 
   }, [])
 
-
   return (
     <div className="home">
       <div className="heading">MARTINI COMPETITION</div>
@@ -44,10 +46,14 @@ function Home() {
         {loading && 'loading...'}
         {loadingError && 'error message'}
         {cocktails && !loading && !loadingError && cocktails.map(cocktail =>
-          cocktails && <CocktailContainer cocktail={cocktail} />
+          cocktails && <CocktailContainer
+            cocktail={cocktail}
+            setWinnerCount={setWinnerCount}
+            setWinnerName={setWinnerName}
+            winnerCount={winnerCount} />
         )}
       </div>
-      <div className="outcome">WINNER: </div>
+      <Link className='link' to={'/winner'}>Winner</Link>
     </div>
   );
 }

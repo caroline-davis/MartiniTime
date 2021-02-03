@@ -1,13 +1,24 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from './EnterButton'
 import CocktailImage from './CocktailImage'
 import './Styling/CocktailContainer.css'
 
-export default ({ cocktail }) => {
+export default ({ cocktail, setWinnerCount, setWinnerName, winnerCount }) => {
 
     const [count, setCount] = useState(0)
-    const [winner, setWinner] = useState(null)
+
+    useEffect(() => {
+        async function findWinner() {
+            if (count > winnerCount) {
+                setWinnerCount(count)
+                setWinnerName(cocktail.name)
+            }
+            return
+        }
+        findWinner();
+
+    }, [count, cocktail, winnerCount, setWinnerCount, setWinnerName])
 
     return (
         <div className='outer-container'>

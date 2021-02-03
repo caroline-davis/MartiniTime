@@ -1,0 +1,24 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.back {
+  display: inline-flex;
+  justify-content: center;
+  font-size: 36px;
+  background-color: #b0e0e5;
+  padding: 10px;
+  border-radius: 50%;
+  min-width: 80px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black;
+  margin-top: 10px;
+}
+
+.back:hover {
+  background-color: black;
+  color: white;
+}
